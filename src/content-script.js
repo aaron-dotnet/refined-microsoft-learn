@@ -19,11 +19,18 @@ async function applyStyles() {
         const aside = document.querySelector('#layout-body-aside');
         if (aside) aside.remove();
 
-        if (mainColumn) mainColumn.classList.add(MainColumnCssClass);
+        if (mainColumn) {
+            mainColumn.classList.add(MainColumnCssClass);
+            mainColumn.style.setProperty('width', `${options.contentWidth}%`, 'important');
+        }
     }
 
     const surveyPopOver = document.querySelector("#survey-popover");
     if (surveyPopOver) surveyPopOver.remove();
 }
 
-applyStyles();
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyStyles);
+} else {
+    applyStyles();
+}

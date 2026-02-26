@@ -1,21 +1,64 @@
-const browserApi = window.browser || window.chrome;
+(function() {
+    const browserApi = window.browser || window.chrome;
+    const OptionRemoveSidebar = "removeSidebar";
+    const OptionContentWidth = "contentWidth";
 
-async function initHandler(id, value) {
-    document.getElementById(id).checked = value;
-    document.getElementById(id).addEventListener("click", function () {
-        const currentValue = document.getElementById(id).checked;
-        browserApi.storage.sync.set({[id]: currentValue});
-        
-        const tabsApi = browserApi.tabs || window.chrome?.tabs;
-        if (tabsApi?.reload) {
-            tabsApi.reload();
-        }
-    });
-}
+    function getStorage() {
+        return browserApi.storage.sync;
+    }
 
-async function init() {
-    const options = await getOptions();
-    await initHandler(OptionRemoveSidebar, options.removeSidebar);
-}
+    function getOptions(callback) {
+        getStorage().get([OptionRemoveSidebar, OptionContentWidth], function(items) {
+            callback({
+                removeSidebar: items[OptionRemoveSidebar] !== false,
+                contentWidth: items[OptionContentWidth] || 140
+            });
+        });
+    }
 
-init();
+    function saveOption(key, value, callback) {
+        const data = {};
+        data[key] = value;
+        getStorage().set(data, function() {
+            if (callback) callback();
+        });
+    }
+
+    function reloadTab() {
+        browserApi.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+            if (tabs[0] && tabs[0].url && tabs[0].url.includes('learn.microsoft.com')) {
+                browserApi.tabs.reload(tabs[0].id);
+            }
+        });
+    }
+
+    function init() {
+        getOptions(function(options) {
+            const sidebarCheckbox = document.getElementById('removeSidebar');
+            const widthSlider = document.getElementById('contentWidth');
+            const widthValue = document.getElementById('widthValue');
+
+            sidebarCheckbox.checked = options.removeSidebar;
+            widthSlider.value = options.contentWidth;
+            widthValue.textContent = options.contentWidth + '%';
+
+            sidebarCheckbox.addEventListener('change', function() {
+                saveOption(OptionRemoveSidebar, sidebarCheckbox.checked, function() {
+                    reloadTab();
+                });
+            });
+
+            widthSlider.addEventListener('input', function() {
+                widthValue.textContent = widthSlider.value + '%';
+            });
+
+            widthSlider.addEventListener('change', function() {
+                saveOption(OptionContentWidth, parseInt(widthSlider.value, 10), function() {
+                    reloadTab();
+                });
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+})();
