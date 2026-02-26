@@ -2,134 +2,191 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Options</title>
+    <title>Refined Microsoft Learn</title>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       html,
       body {
         font-family:
-          segoe ui,
-          Candara,
-          lucida grande,
-          lucida sans unicode,
-          lucida sans,
-          Tahoma,
-          sans-serif;
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         font-size: 14px;
-        color: #e8eef2;
+        color: #e8e8e8;
         padding: 0;
         margin: 0;
+        background: #1a1a1a;
       }
 
       body {
-        width: 300px;
+        width: 320px;
+        min-height: 180px;
       }
 
       .header {
-        background-color: #333337;
-        border-bottom: #4e4e4e 1px solid;
-        padding-bottom: 2px;
-        padding-top: 2px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 20px;
+        background: linear-gradient(135deg, #2d2d2d 0%, #1f1f1f 100%);
+        border-bottom: 1px solid #333;
       }
 
       .header img {
-        width: 14px;
-        position: absolute;
-        top: 5px;
-        left: 4px;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
       }
 
-      .header h2 {
-        padding-top: 0;
-        padding-left: 22px;
-      }
-
-      h2 {
-        font-size: 14px;
-        font-style: normal;
-        font-weight: normal;
+      .header h1 {
+        font-size: 16px;
+        font-weight: 600;
         margin: 0;
+        color: #fff;
+      }
+
+      .header span {
+        font-size: 11px;
+        color: #888;
       }
 
       .content {
-        padding: 5px;
-        background: #252526;
+        padding: 20px;
+        background: #1a1a1a;
       }
 
-      .content label {
-        display: inline-block;
-        margin-top: -60px;
-      }
-
-      .content .hint {
-        font-size: 12px;
-        font-style: italic;
-        color: #979797;
-        margin-left: 8px;
+      .option {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 16px;
+        background: #252525;
+        border-radius: 10px;
         margin-bottom: 10px;
+        border: 1px solid #333;
+        transition: all 0.2s ease;
       }
 
-      .content .subtitle {
-        font-size: 12px;
-        padding-bottom: 20px;
+      .option:hover {
+        background: #2a2a2a;
+        border-color: #444;
       }
 
-      .content input[type="button"] {
-        /*width: 100%;*/
-        height: 18px;
-        background: #66b347;
-        border: none;
-        color: #e8eef2;
+      .option:last-child {
+        margin-bottom: 0;
+      }
+
+      .option-info {
+        flex: 1;
+      }
+
+      .option-label {
+        font-weight: 500;
+        color: #fff;
+        margin-bottom: 2px;
+      }
+
+      .option-desc {
         font-size: 12px;
-        font-weight: normal;
+        color: #888;
+        line-height: 1.4;
+      }
+
+      .switch {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        flex-shrink: 0;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
         cursor: pointer;
-        border-radius: 3px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #444;
+        transition: 0.25s;
+        border-radius: 24px;
       }
 
-      .bottom-help {
-        padding-top: 5px;
-        font-size: 12px;
-        color: rgba(151, 151, 151, 0.87);
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: #fff;
+        transition: 0.25s;
+        border-radius: 50%;
+      }
+
+      .switch input:checked + .slider {
+        background-color: #4f46e5;
+      }
+
+      .switch input:checked + .slider:before {
+        transform: translateX(20px);
       }
 
       .footer {
-        background-color: #333337;
-        font-size: 14px;
-        border-top: #4e4e4e 1px solid;
-        padding-left: 3px;
-        padding-bottom: 2px;
+        padding: 12px 20px;
+        text-align: center;
+        border-top: 1px solid #333;
+        background: #1f1f1f;
       }
 
-      a {
+      .footer a {
         text-decoration: none;
-        color: #5e9ff9;
+        color: #6366f1;
+        font-size: 12px;
+        transition: color 0.2s;
       }
 
-      a:hover {
-        color: #e8eef2;
+      .footer a:hover {
+        color: #818cf8;
       }
     </style>
   </head>
   <body>
     <div class="header">
       <img src="img/icon-48.png" alt="icon" />
-      <h2>Refined Microsoft Learn</h2>
+      <div>
+        <h1>Refined Microsoft Learn</h1>
+        <span>v1.1.0</span>
+      </div>
     </div>
 
     <div class="content">
-      <div class="subtitle">
-        🌟 Enjoy a refined experience on Microsoft Learn. Declutter and focus on
-        the content.
+      <div class="option">
+        <div class="option-info">
+          <div class="option-label">Remove Sidebar</div>
+          <div class="option-desc">
+            Hide the right panel for more content space
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="removeSidebar" checked />
+          <span class="slider"></span>
+        </label>
       </div>
-
-      <label for="removeSidebar">
-        <input type="checkbox" id="removeSidebar" checked="" />Remove right
-        sidebar
-      </label>
-      <div class="hint">Removes sidebar from the right side of the page.</div>
     </div>
 
     <div class="footer">
-      <a href="https://github.com/aaron-dotnet/refined-microsoft-learn" target="_blank">aaron-dotnet / GitHub</a>
+      <a
+        href="https://github.com/aaron-dotnet/refined-microsoft-learn"
+        target="_blank"
+        >View on GitHub</a
+      >
     </div>
     <script src="core.js"></script>
     <script src="popup.js"></script>
