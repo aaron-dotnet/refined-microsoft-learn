@@ -7,10 +7,12 @@ async function initHandler(id, value) {
         var browser = (window.browser)? window.browser : window.chrome;
         
         const currentValue = document.getElementById(id).checked;
-        console.log(id + " -> " + currentValue);
         browser.storage.sync.set({[id]: currentValue});
-
-        browser.tabs.reload();
+        if (browser.tabs && browser.tabs.reload) {
+            browser.tabs.reload();
+        } else if (window.chrome && chrome.tabs && chrome.tabs.reload) {
+            chrome.tabs.reload();
+        }
     });
     
 }
@@ -18,7 +20,6 @@ async function initHandler(id, value) {
 async function init() {
     const options = await getOptions();
     await initHandler(OptionRemoveSidebar, options.removeSidebar);
-    await initHandler(OptionFloatingTOC, options.floatingTOC);
 }
 
 init();

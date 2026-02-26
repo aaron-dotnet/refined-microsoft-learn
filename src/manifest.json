@@ -1,7 +1,7 @@
 {
     "name": "Refined Microsoft Learn",
     "description": "Make Microsoft Learn better by focusing on the content. Toggle options to hide the right pane and float the table of contents.",
-    "author": "Merill Fernando",
+    "author": "aaron-dotnet",
     "version": "1.0.3",
     "manifest_version": 3,
     "icons": {
@@ -29,5 +29,11 @@
     "action": {
         "default_title": "Refined Microsoft Learn",
         "default_popup": "popup.html"
+    }
+    ,
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "refinedlearn@aaron-dotnet"
+        }
     }
 }

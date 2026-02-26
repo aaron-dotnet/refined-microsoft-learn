@@ -1,34 +1,24 @@
 .rf-ms-learn-main-column {
-    width: 95% !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin-right: 0 !important;
 }
 
-.rf-ms-learn-floating-toc {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 9999;
-    padding: 2px 8px 10px 9px;
-    opacity: 0.8;
-    background: var(--theme-text-invert);
-    border: .125rem solid var(--theme-border);
-    border-radius: 5px;
+/* Ensure the main/layout wrappers expand when the aside is removed */
+#main, .layout-body-main {
+    max-width: none !important;
+    width: auto !important;
+    flex: 1 1 auto !important;
+    padding-inline-end: 0 !important;
 }
 
-.rf-ms-learn-floating-toc:hover {
-    opacity: 1;
+.layout-body-main [data-main-column], [data-main-column] {
+    width: 140% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 
-/* make header less high */
-.rf-ms-learn-floating-toc h2 {
-    margin: 0 !important;
-}
-
-/* remove line to the left of the border and make the list slimmer */
-.rf-ms-learn-floating-toc ol {
-    border: 0 !important;
-    padding: 0 !important;
-}
-
-.rf-ms-learn-floating-toc ol li {
-    list-style: inside !important;
+.content {
+    max-width: none !important;
 }
