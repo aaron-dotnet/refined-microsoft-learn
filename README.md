@@ -12,6 +12,8 @@ This extension gives you a cleaner, faster and more readable Microsoft Learn exp
 - Removes the content on the right pane
 - Expands the main content area so code samples and tables have more horizontal space
 
-|             Before             |            After             |
-| :----------------------------: | :--------------------------: |
-| ![Before](/src/img/before.png) | ![After](/src/img/after.png) |
+<p align="center">
+  <img alt="Before" src="./src/img/before.png" width="45%">
+  &nbsp;
+  <img alt="after" src="./src/img/after.png" width="45%">
+</p>
